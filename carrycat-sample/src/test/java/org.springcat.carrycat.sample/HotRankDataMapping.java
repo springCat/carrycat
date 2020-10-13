@@ -4,9 +4,6 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.db.Entity;
 import org.springcat.carrycat.impl.transformer.FtpRdbmsDataMapping;
 
-import java.io.File;
-import java.util.Map;
-
 /**
  * @Description DataMapping
  * @Author springCat

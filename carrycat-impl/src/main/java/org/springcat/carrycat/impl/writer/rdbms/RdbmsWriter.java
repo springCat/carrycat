@@ -8,9 +8,8 @@ import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import cn.hutool.setting.Setting;
 import org.springcat.carrycat.core.job.JobConf;
-import org.springcat.carrycat.core.stream.AbstractWriter;
-import org.springcat.carrycat.core.stream.channel.BufferData;
-import org.springcat.carrycat.core.stream.channel.BufferI;
+import org.springcat.carrycat.core.writer.AbstractWriter;
+import org.springcat.carrycat.core.channel.BufferI;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -35,7 +34,7 @@ public class RdbmsWriter extends AbstractWriter {
     public boolean init(JobConf jobConf){
         super.init(jobConf);
         this.rdbmsWriterConf = jobConf.getGroupConfBean(RdbmsWriterConf.class);
-        this.initDb(rdbmsWriterConf);
+        this.db = this.initDb(rdbmsWriterConf);
         return true;
     }
 

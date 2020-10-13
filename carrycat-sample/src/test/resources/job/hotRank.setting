@@ -1,15 +1,23 @@
 jobSwitchOn=true
 jobCronExpression=*/20 * * * * *
+
 jobClass=org.springcat.carrycat.core.job.Job
 writerClass=org.springcat.carrycat.impl.writer.rdbms.RdbmsWriter
 readerClass=org.springcat.carrycat.impl.reader.ftp.FtpFileReader
-bufferClass=org.springcat.carrycat.core.stream.channel.ArrayBlockingQueueBuffer
+bufferClass=org.springcat.carrycat.core.channel.ArrayBlockingQueueBuffer
 
 [writer]
 writerNum=2
 writerBatchSize=10
 writerPoolSize=2
-mappingClass=org.springcat.carrycat.sample.HotRankDataMapping
+#mappingClass=org.springcat.carrycat.sample.HotRankDataMapping
+mappingClass=org.springcat.carrycat.impl.transformer.FtpRdbmsDataMapping
+
+[mapping]
+# columnName=index,type,defaultValue
+CIRCLE_ID= 0,int
+STAT_TIME=1,date,19700101
+RANK_NO=2,int
 
 [ftpFileReader]
 ftpIp=#{ftpIp}
@@ -33,7 +41,7 @@ showParams=true
 sqlLevel=info
 importTable=#{importTable}
 cleanTableBeforeImport=true
-
+useMappingConf=true
 
 
 

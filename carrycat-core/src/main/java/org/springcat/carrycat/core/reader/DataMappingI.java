@@ -1,7 +1,7 @@
-package org.springcat.carrycat.core.stream;
+package org.springcat.carrycat.core.reader;
 
 import org.springcat.carrycat.core.job.JobConf;
-import org.springcat.carrycat.core.stream.channel.BufferData;
+import org.springcat.carrycat.core.channel.BufferData;
 
 
 /**

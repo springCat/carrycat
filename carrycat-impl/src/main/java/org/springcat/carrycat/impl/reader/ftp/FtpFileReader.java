@@ -5,10 +5,10 @@ import cn.hutool.core.io.LineHandler;
 import cn.hutool.extra.ftp.Ftp;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
-import org.springcat.carrycat.core.stream.channel.BufferData;
+import org.springcat.carrycat.core.channel.BufferData;
 import org.springcat.carrycat.core.job.JobConf;
-import org.springcat.carrycat.core.stream.AbstractReader;
-import org.springcat.carrycat.core.stream.channel.BufferI;
+import org.springcat.carrycat.core.reader.AbstractReader;
+import org.springcat.carrycat.core.channel.BufferI;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -22,7 +22,6 @@ import java.util.List;
 public class FtpFileReader extends AbstractReader {
 
     private Log LOGGER =  LogFactory.get(FtpFileReader.class);
-
 
     private FtpFileReaderConf ftpFileReaderConf;
 

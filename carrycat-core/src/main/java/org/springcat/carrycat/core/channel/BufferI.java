@@ -1,4 +1,4 @@
-package org.springcat.carrycat.core.stream.channel;
+package org.springcat.carrycat.core.channel;
 
 import java.util.Collection;
 

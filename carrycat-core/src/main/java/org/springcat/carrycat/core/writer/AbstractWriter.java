@@ -1,13 +1,15 @@
-package org.springcat.carrycat.core.stream;
+package org.springcat.carrycat.core.writer;
 
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import lombok.Data;
 import lombok.SneakyThrows;
-import org.springcat.carrycat.core.stream.channel.BufferData;
-import org.springcat.carrycat.core.stream.channel.BufferI;
+import org.springcat.carrycat.core.PluginI;
+import org.springcat.carrycat.core.channel.BufferData;
+import org.springcat.carrycat.core.channel.BufferI;
 import org.springcat.carrycat.core.job.JobConf;
+import org.springcat.carrycat.core.reader.DataMappingI;
 import org.springcat.carrycat.core.util.CarryCatUtil;
 import org.springcat.carrycat.core.util.ThreadUtils;
 import java.util.ArrayList;
@@ -24,9 +26,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @Date 2020/10/9 16:02
  */
 @Data
-public abstract class AbstractWriter extends AbstractStream {
+public abstract class AbstractWriter implements PluginI {
 
     private Log LOGGER =  LogFactory.get(AbstractWriter.class);
+
+    private BufferI buffer;
 
     private ExecutorService writerPool;
 
@@ -47,7 +51,8 @@ public abstract class AbstractWriter extends AbstractStream {
 
 
     public AbstractWriter(BufferI buffer) {
-        super(buffer);
+       this.buffer = buffer;
+
     }
 
     @SneakyThrows
@@ -57,7 +62,10 @@ public abstract class AbstractWriter extends AbstractStream {
         this.writerConf = jobConf.getGroupConfBean(WriterConf.class);
 
         this.dataMapping = CarryCatUtil.newInstance(writerConf.getMappingClass());
-        this.dataMapping.init(jobConf);
+        if(!this.dataMapping.init(jobConf)){
+            LOGGER.error("AbstractWriter init dataMapping error:{}",jobConf);
+            return false;
+        }
 
         this.countDownLatch = new CountDownLatch(writerConf.getWriterNum());
         this.CURRENT_WRITER_NUM = new AtomicInteger(0);

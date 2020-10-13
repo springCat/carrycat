@@ -1,4 +1,4 @@
-package org.springcat.carrycat.core.stream;
+package org.springcat.carrycat.core.reader;
 
 import lombok.Data;
 import org.springcat.carrycat.core.ConfI;

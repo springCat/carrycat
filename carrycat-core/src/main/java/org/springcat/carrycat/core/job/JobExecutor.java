@@ -1,9 +1,8 @@
-package org.springcat.carrycat.core;
+package org.springcat.carrycat.core.job;
 
 import cn.hutool.core.lang.Validator;
 import cn.hutool.cron.task.Task;
-import org.springcat.carrycat.core.job.Job;
-import org.springcat.carrycat.core.job.JobConf;
+import org.springcat.carrycat.core.PluginI;
 import org.springcat.carrycat.core.util.CarryCatUtil;
 
 /**

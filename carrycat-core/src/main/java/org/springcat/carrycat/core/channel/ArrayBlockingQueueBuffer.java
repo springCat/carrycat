@@ -1,4 +1,4 @@
-package org.springcat.carrycat.core.stream.channel;
+package org.springcat.carrycat.core.channel;
 
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**

@@ -1,4 +1,4 @@
-package org.springcat.carrycat.core.stream;
+package org.springcat.carrycat.core.writer;
 
 import cn.hutool.core.lang.Assert;
 import lombok.Data;

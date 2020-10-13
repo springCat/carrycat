@@ -5,10 +5,10 @@ import cn.hutool.log.LogFactory;
 import lombok.Data;
 import lombok.SneakyThrows;
 import org.springcat.carrycat.core.PluginI;
-import org.springcat.carrycat.core.stream.channel.BufferData;
-import org.springcat.carrycat.core.stream.channel.BufferI;
-import org.springcat.carrycat.core.stream.AbstractReader;
-import org.springcat.carrycat.core.stream.AbstractWriter;
+import org.springcat.carrycat.core.channel.BufferData;
+import org.springcat.carrycat.core.channel.BufferI;
+import org.springcat.carrycat.core.reader.AbstractReader;
+import org.springcat.carrycat.core.writer.AbstractWriter;
 import org.springcat.carrycat.core.util.CarryCatUtil;
 
 /**
@@ -28,9 +28,11 @@ import org.springcat.carrycat.core.util.CarryCatUtil;
  *     2 简化后, 1个job对应1个reader,1个buffer,N个writer+>transformer
  *     3 暂时实现只有1个buffer,下个版本实现N个buffer,以及路由策略
  *
- *               1                   N           1              N
+ *               1                   1           1              N
  *       ftpfetch and download ->  reader  -> buffer -> transformer + writeLine
- *  	                       file            rawData                List<Column>
+ *  	                       file            rawData      List<Entity>
+ *
+ * version:3
  *
  *
  */

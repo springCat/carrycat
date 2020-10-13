@@ -1,13 +1,17 @@
 package org.springcat.carrycat.impl.transformer;
 
-import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.lang.Dict;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.db.Entity;
 import lombok.Data;
 import org.springcat.carrycat.core.job.JobConf;
-import org.springcat.carrycat.core.stream.DataMappingI;
-import org.springcat.carrycat.core.stream.channel.BufferData;
+import org.springcat.carrycat.core.reader.DataMappingI;
+import org.springcat.carrycat.core.channel.BufferData;
 import org.springcat.carrycat.impl.reader.ftp.FtpFileReaderConf;
 import org.springcat.carrycat.impl.writer.rdbms.RdbmsWriterConf;
+
+import java.lang.reflect.Type;
+import java.util.Date;
 
 /**
  * @Description DataMapping
@@ -15,7 +19,7 @@ import org.springcat.carrycat.impl.writer.rdbms.RdbmsWriterConf;
  * @Date 2020/10/12 12:44
  */
 @Data
-public abstract class FtpRdbmsDataMapping implements DataMappingI {
+public class FtpRdbmsDataMapping implements DataMappingI {
 
     private JobConf jobConf;
 
@@ -23,11 +27,18 @@ public abstract class FtpRdbmsDataMapping implements DataMappingI {
 
     private RdbmsWriterConf rdbmsWriterConf;
 
+    private MappingEntity mappingEntity;
+
     @Override
     public boolean init(JobConf jobConf) {
         this.jobConf = jobConf;
         this.ftpFileReaderConf = jobConf.getGroupConfBean(FtpFileReaderConf.class);
-        this.rdbmsWriterConf = jobConf.getGroupConfBean(RdbmsWriterConf.class);;
+        this.rdbmsWriterConf = jobConf.getGroupConfBean(RdbmsWriterConf.class);
+        
+        if(this.rdbmsWriterConf.getUseMappingConf()) {
+            this.mappingEntity = new MappingEntity();
+            return this.mappingEntity.init(jobConf);
+        }
         return true;
     }
 
@@ -40,8 +51,7 @@ public abstract class FtpRdbmsDataMapping implements DataMappingI {
         return entity;
     }
 
-
-    public abstract void mapping(String[] rawData,Entity entity);
-
-
+    public void mapping(String[] rawData,Entity entity){
+        mappingEntity.mapping(rawData,entity);
+    }
 }

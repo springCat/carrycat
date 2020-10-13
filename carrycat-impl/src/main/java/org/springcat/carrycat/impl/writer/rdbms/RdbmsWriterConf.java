@@ -27,5 +27,7 @@ public class RdbmsWriterConf{
 
     private Boolean cleanTableBeforeImport = false;
 
+    private Boolean useMappingConf = true;
+
 
 }
